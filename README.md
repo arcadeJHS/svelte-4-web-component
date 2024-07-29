@@ -1,3 +1,152 @@
+# Build Custom Elements (Web Components) from a Svelte 4 Components Library
+
+Build Svelte components defined in `src/lib` into framework-agnostic custom elements.
+
+Uses Svelte's Custom Elements API:
+
+https://svelte.dev/docs/custom-elements-api
+
+## How To
+
+1. Create a Svelte component in `src/lib` (e.g., `Counter.svelte`).
+   
+2. Add the Svelte element on top of the component source code: `<svelte:options customElement="PREFIX-counter" />`
+
+> **Note:** The "PREFIX-" prefix allows you to define prefixed custom elements. See the section about `vite.config.js` for further explanations.
+
+3. Then include in a html page one of the js file generated (see an example inside the DEMO folder):
+   
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Components DEMO - mjs</title>
+    <style>
+        /* Your CSS styles go here */
+    </style>
+</head>
+<body>
+    <stg-counter></stg-counter>
+    <stg-counter-added></stg-counter-added>
+
+    <!-- 
+    Most modern browsers support ES modules. 
+    However, there are still some relatively recent browsers that do not support <script type="module">. 
+    Here are a few:
+        - Internet Explorer 11 and earlier: Internet Explorer does not support ES modules at all.
+        - Microsoft Edge (Legacy): The legacy version of Microsoft Edge (before the switch to Chromium) does not support ES modules.
+        - Safari 10.1 and earlier: Safari added support for ES modules in version 11.
+        - Firefox 59 and earlier: Firefox added support for ES modules in version 60.
+        - Chrome 60 and earlier: Chrome added support for ES modules in version 61.
+    -->
+    
+    <!-- Load ES module scripts - if supported by the web browser -->
+    <script type="module" src="stg-counter.m.js"></script>
+    <script type="module" src="stg-counter-added.m.js"></script>
+    
+    <!-- Fallback for older browsers - if the browser does not support script type="module" and es files -->
+    <script nomodule src="stg-counter.umd.js"></script>
+    <script nomodule src="stg-counter-added.umd.js"></script>
+</body>
+</html>
+```
+
+## Develop
+
+Run:
+
+```bash
+npm run dev
+```
+
+## Build for Production
+
+Run:
+
+```bash
+npm run build
+```
+
+## How It Works
+
+The setup doesn't use SvelteKit, but instead implements a Vite + Svelte template (https://svelte.dev/docs/introduction#start-a-new-project-alternatives-to-sveltekit).
+
+The main files involved are:
+
+### package.json
+
+It defines two scripts to develop and build for production:     
+
+```json
+{
+  "scripts": {
+    "build": "node vite.build.js build",
+    "dev": "node vite.build.js dev"
+  }
+}
+```
+
+### vite.build.js
+
+In this script, called by `package.json`, you mainly define two variables:
+
+```javascript
+/**
+ * Prefix your custom elements.
+ * For instance, given a tag "counter", 
+ * the prefix 'stg' will build an element "stg-counter", 
+ * to use in your HTML file as "<stg-counter></stg-counter>"
+ */
+const PREFIX = 'stg';
+
+/**
+ * Here you can list the Svelte components you want to build as custom elements.
+ * "tag" is the tag name you want to use (without prefix)
+ */
+const webComponents = [
+  { tag: 'counter', entry: 'src/lib/Counter.svelte' },
+  { tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
+];
+```
+
+Essentially, `vite.build.js` will take each item defined in `const webComponents` and run a build step, calling `vite.config.js` with parameters to build the Svelte component into a custom element.
+
+### vite.config.js
+
+This is a parameterized version of a vite.config.js file.
+
+It is called by the vite.build.js script to generate each defined element.
+
+In the `build.lib` section, note:
+
+```javascript
+fileName: (format) => {
+    if (format === 'es') {
+        return `${libraryPrefix}${componentTag}.m.js`;
+    }
+    if (format === 'umd') {
+        return `${libraryPrefix}${componentTag}.umd.js`;
+    }
+}
+```
+
+This will create a `<component-tag>.m.js` file for **ES** files, and a `<component-tag>.umd.js` file for the **UMD** version.
+
+Also note the use of the "@rollup/plugin-replace" plugin:
+
+```javascript
+replace({
+    preventAssignment: true,
+    'PREFIX-': libraryPrefix ?? '',
+}),
+```
+
+This is related to Svelte's `<svelte:options customElement="PREFIX-counter" />` element definition and helps define an element/library prefix.
+
+
+
 # Svelte + Vite
 
 This template should help get you started developing with Svelte in Vite.

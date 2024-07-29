@@ -33,11 +33,11 @@ import replace from '@rollup/plugin-replace';
 
 
 // This configuration create a separate, self-contained, and independent build for each component
-const componentName = process.env.COMPONENT_NAME;
+const componentTag = process.env.COMPONENT_TAG;
 const componentEntry = process.env.COMPONENT_ENTRY;
 const libraryPrefix = process.env.COMPONENT_PREFIX ? `${process.env.COMPONENT_PREFIX}-` : '';
 
-if (!componentName || !componentEntry) {
+if (!componentTag || !componentEntry) {
   throw new Error('COMPONENT_NAME and COMPONENT_ENTRY environment variables are required');
 }
 
@@ -48,14 +48,14 @@ export default defineConfig(({ mode }) => {
     build: {
       lib: {
         entry: path.resolve(__dirname, componentEntry),
-        name: componentName,
+        name: componentTag,
         formats: ['es', 'umd'],
         fileName: (format) => {
           if (format === 'es') {
-            return `${libraryPrefix}${componentName}.m.js`;
+            return `${libraryPrefix}${componentTag}.m.js`;
           }
           if (format === 'umd') {
-            return `${libraryPrefix}${componentName}.umd.js`;
+            return `${libraryPrefix}${componentTag}.umd.js`;
           }
         }
       },

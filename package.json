@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "build": "node vite.build-all.js build",
-    "dev": "node vite.build-all.js dev"
+    "build": "node vite.build.js build",
+    "dev": "node vite.build.js dev"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^5.0.7",
