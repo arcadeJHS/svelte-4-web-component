@@ -5,6 +5,6 @@
 export const PREFIX = 'stg';
 
 export const COMPONENTS = [
-  { tag: 'counter', entry: 'src/lib/Counter.svelte' },
-  { tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
+  { tag: 'counter', entry: 'src/lib/components/Counter.svelte' },
+  { tag: 'counter-added', entry: 'src/lib/components/CounterAdded.svelte' }
 ];

@@ -68,7 +68,9 @@ https://svelte.dev/docs/custom-elements-api
 
 ## Develop
 
-Run:
+Test Svelte components in a Svelte app.
+
+Import your component into `/src/App.svelte`, then run:
 
 ```bash
 npm run dev
