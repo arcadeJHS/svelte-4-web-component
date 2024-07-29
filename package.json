@@ -1,0 +1,16 @@
+{
+  "name": "svelte-4-web-components",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "node vite.build-all.js build",
+    "dev": "node vite.build-all.js dev"
+  },
+  "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.7",
+    "@sveltejs/vite-plugin-svelte": "^2.0.4",
+    "svelte": "^4.0.0",
+    "vite": "^4.3.9"
+  }
+}
