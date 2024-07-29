@@ -160,7 +160,17 @@ replace({
 
 This is related to Svelte's `<svelte:options customElement="PREFIX-counter" />` element definition and helps define an element/library prefix.
 
+## svelte.config.js
 
+Define svelte processor configuration.
+
+The most important is:
+
+```js
+compilerOptions: { 
+    customElement: true 
+}
+```
 
 # Svelte + Vite
 
