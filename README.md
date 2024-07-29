@@ -101,7 +101,7 @@ It defines two scripts to develop and build for production:
 }
 ```
 
-### vite.build.components.js
+### vite.build.components.js
 
 This file defines the prefix for your components, and list the Svelte components you would like to build as custom elements. For instance:
 
@@ -119,8 +119,8 @@ export const PREFIX = 'stg';
  * "tag" is the tag name you want to use (without prefix)
  */
 export const COMPONENTS = [
-{ tag: 'counter', entry: 'src/lib/Counter.svelte' },
-{ tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
+    { tag: 'counter', entry: 'src/lib/Counter.svelte' },
+    { tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
 ];
 ```
 
@@ -160,11 +160,11 @@ replace({
 
 This is related to Svelte's `<svelte:options customElement="PREFIX-counter" />` element definition and helps define an element/library prefix.
 
-## svelte.config.js
+### svelte.config.js
 
-Define svelte processor configuration.
+Svelte comiler configuration.
 
-The most important is:
+In the contest of custom elements, this is required:
 
 ```js
 compilerOptions: { 
