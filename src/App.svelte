@@ -3,6 +3,7 @@
   import viteLogo from '/vite.svg'
   import Counter from './lib/components/Counter.svelte'
   import CounterAdded from './lib/components/CounterAdded.svelte'
+  import ChatSearch from './lib/components/ChatSearch.svelte';
 </script>
 
 <main>
@@ -21,6 +22,10 @@
 
   <div class="card">
     <CounterAdded />
+  </div>
+
+  <div class="card">
+    <ChatSearch />
   </div>
 
 </main>
