@@ -10,11 +10,24 @@ https://svelte.dev/docs/custom-elements-api
 
 1. Create a Svelte component in `src/lib` (e.g., `Counter.svelte`).
    
-2. Add the Svelte element on top of the component source code: `<svelte:options customElement="PREFIX-counter" />`
+2. Add the Svelte element on top of the component source code: `<svelte:options customElement="PREFIX-counter" />` (see https://svelte.dev/docs/custom-elements-api).
 
-> **Note:** The "PREFIX-" prefix allows you to define prefixed custom elements. See the section about `vite.config.js` for further explanations.
+    > **Note:** The "PREFIX-" prefix allows you to define prefixed custom elements. See the section about `vite.config.js` for further explanations.
 
-3. Then include in a html page one of the js file generated (see an example inside the DEMO folder):
+3. Inside the file ```vite.build.components``` define the prefix for your components, and list the Svelte components you would like to build as custom elements. For instance:
+
+    ```js
+    export const PREFIX = 'stg';
+
+    export const COMPONENTS = [
+    { tag: 'counter', entry: 'src/lib/Counter.svelte' },
+    { tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
+    ];
+    ```
+
+4. Run ```npm run build```.
+
+5. Then include in a html page one of the js file generated (see an example inside the DEMO folder):
    
 ```html
 <!DOCTYPE html>
@@ -88,30 +101,32 @@ It defines two scripts to develop and build for production:
 }
 ```
 
-### vite.build.js
+### vite.build.components.js
 
-In this script, called by `package.json`, you mainly define two variables:
+This file defines the prefix for your components, and list the Svelte components you would like to build as custom elements. For instance:
 
-```javascript
+```js
 /**
  * Prefix your custom elements.
  * For instance, given a tag "counter", 
  * the prefix 'stg' will build an element "stg-counter", 
  * to use in your HTML file as "<stg-counter></stg-counter>"
  */
-const PREFIX = 'stg';
+export const PREFIX = 'stg';
 
 /**
  * Here you can list the Svelte components you want to build as custom elements.
  * "tag" is the tag name you want to use (without prefix)
  */
-const webComponents = [
-  { tag: 'counter', entry: 'src/lib/Counter.svelte' },
-  { tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
+export const COMPONENTS = [
+{ tag: 'counter', entry: 'src/lib/Counter.svelte' },
+{ tag: 'counter-added', entry: 'src/lib/CounterAdded.svelte' }
 ];
 ```
 
-Essentially, `vite.build.js` will take each item defined in `const webComponents` and run a build step, calling `vite.config.js` with parameters to build the Svelte component into a custom element.
+### vite.build.js
+
+`vite.build.js` will take each item defined in `vite.build.components.js` and run a build step, calling `vite.config.js` with parameters to build the Svelte component into a custom element.
 
 ### vite.config.js
 
