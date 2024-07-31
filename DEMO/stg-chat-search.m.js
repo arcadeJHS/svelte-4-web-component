@@ -1,6 +1,6 @@
 var I = Object.defineProperty;
-var U = (e, t, n) => t in e ? I(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
-var f = (e, t, n) => (U(e, typeof t != "symbol" ? t + "" : t, n), n);
+var H = (e, t, n) => t in e ? I(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
+var f = (e, t, n) => (H(e, typeof t != "symbol" ? t + "" : t, n), n);
 function l() {
 }
 function T(e) {
@@ -15,7 +15,7 @@ function w(e) {
 function J(e) {
   return typeof e == "function";
 }
-function z(e, t) {
+function R(e, t) {
   return e != e ? t == t : e !== t || e && typeof e == "object" || typeof e == "function";
 }
 function V(e) {
@@ -30,25 +30,25 @@ function v(e, ...t) {
   const n = e.subscribe(...t);
   return n.unsubscribe ? () => n.unsubscribe() : n;
 }
-function F(e, t, n) {
+function D(e, t, n) {
   e.$$.on_destroy.push(v(t, n));
 }
 function P(e, t) {
   e.appendChild(t);
 }
-function R(e, t, n) {
+function U(e, t, n) {
   e.insertBefore(t, n || null);
 }
-function S(e) {
+function j(e) {
   e.parentNode && e.parentNode.removeChild(e);
 }
 function k(e) {
   return document.createElement(e);
 }
-function G(e) {
+function F(e) {
   return document.createTextNode(e);
 }
-function D(e, t, n) {
+function G(e, t, n) {
   n == null ? e.removeAttribute(t) : e.getAttribute(t) !== n && e.setAttribute(t, n);
 }
 function K(e) {
@@ -82,14 +82,14 @@ function Y(e) {
 const _ = [], B = [];
 let b = [];
 const M = [], Z = /* @__PURE__ */ Promise.resolve();
-let j = !1;
+let S = !1;
 function tt() {
-  j || (j = !0, Z.then(q));
+  S || (S = !0, Z.then(q));
 }
 function O(e) {
   b.push(e);
 }
-const x = /* @__PURE__ */ new Set();
+const E = /* @__PURE__ */ new Set();
 let h = 0;
 function q() {
   if (h !== 0)
@@ -108,13 +108,13 @@ function q() {
       B.pop()();
     for (let t = 0; t < b.length; t += 1) {
       const n = b[t];
-      x.has(n) || (x.add(n), n());
+      E.has(n) || (E.add(n), n());
     }
     b.length = 0;
   } while (_.length);
   for (; M.length; )
     M.pop()();
-  j = !1, x.clear(), p(e);
+  S = !1, E.clear(), p(e);
 }
 function et(e) {
   if (e.fragment !== null) {
@@ -171,21 +171,21 @@ function ut(e, t, n, s, i, r, o = null, u = [-1]) {
   };
   o && o(c.root);
   let g = !1;
-  if (c.ctx = n ? n(e, t.props || {}, (a, C, ...N) => {
-    const A = N.length ? N[0] : C;
-    return c.ctx && i(c.ctx[a], c.ctx[a] = A) && (!c.skip_bound && c.bound[a] && c.bound[a](A), g && ot(e, a)), C;
+  if (c.ctx = n ? n(e, t.props || {}, (a, C, ...A) => {
+    const N = A.length ? A[0] : C;
+    return c.ctx && i(c.ctx[a], c.ctx[a] = N) && (!c.skip_bound && c.bound[a] && c.bound[a](N), g && ot(e, a)), C;
   }) : [], c.update(), g = !0, w(c.before_update), c.fragment = s ? s(c.ctx) : !1, t.target) {
     if (t.hydrate) {
       const a = K(t.target);
-      c.fragment && c.fragment.l(a), a.forEach(S);
+      c.fragment && c.fragment.l(a), a.forEach(j);
     } else
       c.fragment && c.fragment.c();
     t.intro && rt(e.$$.fragment), it(e, t.target, t.anchor), q();
   }
   p($);
 }
-let H;
-typeof HTMLElement == "function" && (H = class extends HTMLElement {
+let z;
+typeof HTMLElement == "function" && (z = class extends HTMLElement {
   constructor(t, n, s) {
     super();
     /** The Svelte component constructor */
@@ -228,17 +228,17 @@ typeof HTMLElement == "function" && (H = class extends HTMLElement {
           let o;
           return {
             c: function() {
-              o = k("slot"), r !== "default" && D(o, "name", r);
+              o = k("slot"), r !== "default" && G(o, "name", r);
             },
             /**
              * @param {HTMLElement} target
              * @param {HTMLElement} [anchor]
              */
             m: function(c, g) {
-              R(c, o, g);
+              U(c, o, g);
             },
             d: function(c) {
-              c && S(o);
+              c && j(o);
             }
           };
         };
@@ -335,7 +335,7 @@ function y(e, t, n, s) {
     }
 }
 function $t(e, t, n, s, i, r) {
-  let o = class extends H {
+  let o = class extends z {
     constructor() {
       super(e, n, i), this.$$p_d = t;
     }
@@ -418,7 +418,7 @@ function at(e, t = l) {
   let n;
   const s = /* @__PURE__ */ new Set();
   function i(u) {
-    if (z(e, u) && (e = u, n)) {
+    if (R(e, u) && (e = u, n)) {
       const $ = !d.length;
       for (const c of s)
         c[1](), d.push(c, e);
@@ -440,36 +440,37 @@ function at(e, t = l) {
   }
   return { set: i, update: r, subscribe: o };
 }
-const ht = () => {
+const ht = "http://localhost:8099", dt = () => {
   const e = {}, { subscribe: t, set: n } = at(e);
   return {
     subscribe: t,
     set: (s) => n(s),
-    // start: async ({ language }: SearchStartParams = {}) => {
+    start: async ({ language: s } = {}) => {
+      const i = new URLSearchParams();
+      s && i.append("l", s);
+      let r = `${ht}/search/start`;
+      return i.toString() && (r += `?${i.toString()}`), await (await fetch(r, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })).json();
+    }
+    // start: async () => {
     //     const queryParams = new URLSearchParams();
-    //     if (language) queryParams.append('l', language);
-    //     let url = `${PUBLIC_BACKEND_BASE_URL}/search/start`;
-    //     if (queryParams.toString()) {
-    //         url += `?${queryParams.toString()}`;
-    //       }
+    //     const url = 'https://catfact.ninja/fact';
     // 	const res = await fetch(url, {
     // 		method: 'GET',
     // 		headers: {
     // 			'Content-Type': 'application/json'
     // 		}
     // 	});
-    // 	//const response = await res.json();
-    // 	return res;
+    // 	const response = await res.json();
+    // 	return response;
     // }
-    start: async () => (new URLSearchParams(), await (await fetch("https://catfact.ninja/fact", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })).json())
   };
-}, E = ht();
-function dt(e) {
+}, x = dt();
+function _t(e) {
   let t, n, s = JSON.stringify(
     /*$search*/
     e[0],
@@ -478,10 +479,10 @@ function dt(e) {
   ) + "", i;
   return {
     c() {
-      t = k("div"), n = k("pre"), i = G(s);
+      t = k("div"), n = k("pre"), i = F(s);
     },
     m(r, o) {
-      R(r, t, o), P(t, n), P(n, i);
+      U(r, t, o), P(t, n), P(n, i);
     },
     p(r, [o]) {
       o & /*$search*/
@@ -495,23 +496,23 @@ function dt(e) {
     i: l,
     o: l,
     d(r) {
-      r && S(t);
+      r && j(t);
     }
   };
 }
-function _t(e, t, n) {
+function bt(e, t, n) {
   let s;
-  return F(e, E, (i) => n(0, s = i)), Y(async () => {
-    let i = await E.start();
-    E.set(i);
+  return D(e, x, (i) => n(0, s = i)), Y(async () => {
+    let i = await x.start({ language: "it" });
+    x.set(i);
   }), [s];
 }
-class bt extends ft {
+class pt extends ft {
   constructor(t) {
-    super(), ut(this, t, _t, dt, z, {});
+    super(), ut(this, t, bt, _t, R, {});
   }
 }
-customElements.define("stg-chat-search", $t(bt, {}, [], [], !0));
+customElements.define("stg-chat-search", $t(pt, {}, [], [], !0));
 export {
-  bt as default
+  pt as default
 };

@@ -14,31 +14,16 @@ const useSearch = () => {
 	return {
 		subscribe,
 		set: (search) => set(search),
-        // start: async ({ language }: SearchStartParams = {}) => {
-        //     const queryParams = new URLSearchParams();
-
-        //     if (language) queryParams.append('l', language);
-
-        //     let url = `${PUBLIC_BACKEND_BASE_URL}/search/start`;
-
-        //     if (queryParams.toString()) {
-        //         url += `?${queryParams.toString()}`;
-        //       }
-
-		// 	const res = await fetch(url, {
-		// 		method: 'GET',
-		// 		headers: {
-		// 			'Content-Type': 'application/json'
-		// 		}
-		// 	});
-
-		// 	//const response = await res.json();
-		// 	return res;
-		// }
-
-		start: async () => {
+        start: async ({ language }: SearchStartParams = {}) => {
             const queryParams = new URLSearchParams();
-            const url = 'https://catfact.ninja/fact';
+
+            if (language) queryParams.append('l', language);
+
+            let url = `${PUBLIC_BACKEND_BASE_URL}/search/start`;
+
+            if (queryParams.toString()) {
+                url += `?${queryParams.toString()}`;
+              }
 
 			const res = await fetch(url, {
 				method: 'GET',

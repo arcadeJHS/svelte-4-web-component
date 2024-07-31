@@ -5,7 +5,7 @@
 	import { search } from '../stores/SearchStore';
 
 	onMount(async () => {
-		let _search =  await search.start();
+		let _search =  await search.start({ language: 'it' });
 		search.set(_search);
 	});
 </script>
